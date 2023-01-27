@@ -1,11 +1,9 @@
-require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "sumneko_lua", "rust_analyzer", "html", "cssls", "cssmodules_ls", "tailwindcss", "quick_lint_js", "tsserver", "astro", "jsonls", "golangci_lint_ls", "gopls" },
-    automatic_installation = true
-})
+-- Learn the keybindings, see :help lsp-zero-keybindings
+-- Learn to configure LSP servers, see :help lsp-zero-api-showcase
+local lsp = require('lsp-zero')
+lsp.preset('recommended')
 
-require("lspconfig").sumneko_lua.setup {}
-require("lspconfig").quick_lint_js.setup {}
+lsp.ensure_installed = { "sumneko_lua", "rust_analyzer", "html", "cssls", "cssmodules_ls", "tailwindcss", "quick_lint_js", "tsserver", "astro", "jsonls", "golangci_lint_ls", "gopls" }
 
  local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -21,5 +19,6 @@ require("lspconfig").quick_lint_js.setup {}
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts) vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+lsp.setup()
