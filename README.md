@@ -1,6 +1,6 @@
 # My dotFiles
 
-**Sym link each file/folder in the dotFiles to the locations they are supposed to be located.**
+*Sym link each file/folder in the dotFiles to the locations they are supposed to be located.*
 
 ## i3 Setup
 

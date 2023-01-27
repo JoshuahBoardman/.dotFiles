@@ -49,4 +49,6 @@ return require('packer').startup(function(use)
     -- Themes and Styles --
     use 'folke/tokyonight.nvim'
     use { "catppuccin/nvim", as = "catppuccin" }
+
+    use 'mbbill/undotree'
 end)

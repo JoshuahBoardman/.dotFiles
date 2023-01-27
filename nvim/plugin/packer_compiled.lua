@@ -175,6 +175,11 @@ _G.packer_plugins = {
     path = "/home/joshuahb/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  undotree = {
+    loaded = true,
+    path = "/home/joshuahb/.local/share/nvim/site/pack/packer/start/undotree",
+    url = "https://github.com/mbbill/undotree"
+  },
   ["vim-be-good"] = {
     loaded = true,
     path = "/home/joshuahb/.local/share/nvim/site/pack/packer/start/vim-be-good",
