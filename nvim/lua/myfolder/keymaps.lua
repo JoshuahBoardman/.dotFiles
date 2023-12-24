@@ -22,3 +22,6 @@ keymap("n", "<leader>e", ":Lex <cr>", opts)
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
 
+-- Copy To Clipboard -- 
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
