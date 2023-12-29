@@ -1,0 +1,21 @@
+import = [
+  "~/.config/alacritty/catppuccin-frappe.toml",
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 5, y = 5}
+dynamic_padding = true
+decorations = "Transparent"
+opacity = 0.75
+blur = true
+startup_mode = "Fullscreen"
+dynamic_title = true
+
+[font]
+size = 15.5
+normal = {family = "FiraCode Nerd Font Mono", style = "Medium"}
+
+[colors]
