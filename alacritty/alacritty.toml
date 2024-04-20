@@ -8,14 +8,14 @@ TERM = "xterm-256color"
 [window]
 padding = { x = 10, y = 10}
 dynamic_padding = true
-decorations = "Transparent"
+decorations = "Full" # Linux: None | Mac: Transparent
 opacity = 0.75
 blur = true
-# Options: "Maximized", "Maximized", "SimpleFullscreen"
-startup_mode = "Maximized" 
+# Options: "Maximized", "Fullscreen", "SimpleFullscreen"
+startup_mode = "Windowed" 
 dynamic_title = true
 
 [font]
 size = 15.5
-normal = {family = "FiraCode Nerd Font Mono", style = "Medium"}
+# normal = {family = "FiraCode Nerd Font Mono", style = "Medium"} # Make sure font is installed
 

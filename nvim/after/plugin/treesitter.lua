@@ -1,8 +1,8 @@
 -- require 'nvim-treesitter.install'.compilers = { 'zig' }
 
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = {"help", "c", "lua", "rust", "html", "css", "javascript", "typescript", "astro", "go", "json" },
+    -- A list of parser names, or "all"
+    --  ensure_installed = {"help", "c", "lua", "rust", "html", "css", "javascript", "typescript", "astro", "go", "json" },
 
 sync_install = false,
 

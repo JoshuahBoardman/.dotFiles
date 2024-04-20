@@ -1,2 +1,2 @@
-require("myfolder.options")
-require("myfolder.keymaps") 
+require("joshuahBoardman.options")
+require("joshuahBoardman.keymaps") 
