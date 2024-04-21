@@ -9,7 +9,7 @@ TERM = "xterm-256color"
 padding = { x = 10, y = 10}
 dynamic_padding = true
 decorations = "Full" # Linux: None | Mac: Transparent
-opacity = 0.75
+opacity = 0.90
 blur = true
 # Options: "Maximized", "Fullscreen", "SimpleFullscreen"
 startup_mode = "Windowed" 
