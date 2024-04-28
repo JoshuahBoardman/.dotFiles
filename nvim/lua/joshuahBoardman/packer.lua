@@ -102,6 +102,12 @@ return require('packer').startup(function(use)
         }
     }
 
+    -----------------
+    -- Producivity --
+    -----------------
+
+    use 'ThePrimeagen/vim-apm' -- Not Working
+
     --------------------------
     -- Vim Practice & Games --
     --------------------------
