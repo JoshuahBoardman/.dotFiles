@@ -11,7 +11,8 @@ return {
         lazy = false,
         config = function()
            require("mason-lspconfig").setup({
-                -- Find LSPs: https://github.com/williamboman/mason-lspconfig.nvim ensure_installed = {"lua_ls", "gopls", "rust_analyzer", "tsserver", "marksman", "astro", "tailwindcss"},
+                -- Find LSPs: https://github.com/williamboman/mason-lspconfig.nvim 
+                ensure_installed = {"lua_ls", "gopls", "rust_analyzer", "tsserver", "marksman", "astro", "tailwindcss"},
            })
         end
     },
