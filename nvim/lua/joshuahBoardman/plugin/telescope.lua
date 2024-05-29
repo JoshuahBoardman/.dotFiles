@@ -1,10 +1,11 @@
--- Install ripgrep & fn for improved experience 
+-- Install ripgrep & fn for improved experience
 
 return {
-    {'nvim-telescope/telescope.nvim', 
+    {
+        'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function() 
+        config = function()
             require('telescope').setup()
 
             local builtin = require('telescope.builtin')
@@ -23,15 +24,14 @@ return {
         'nvim-telescope/telescope-ui-select.nvim',
         config = function()
             require("telescope").setup({
-              extensions = {
-                ["ui-select"] = {
-                  require("telescope.themes").get_dropdown {
-                  }
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown {
+                        }
+                    }
                 }
-              }
             })
             require("telescope").load_extension("ui-select")
         end
     },
 }
-

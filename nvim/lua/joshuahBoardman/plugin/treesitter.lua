@@ -3,10 +3,10 @@ return {
     build = ':TSUpdate',
     lazy = false,
     config = function()
-        require'nvim-treesitter.configs'.setup({
+        require 'nvim-treesitter.configs'.setup({
             -- A list of parser names, or "all"
             ensure_installed = {
-            --  "help",
+                --  "help",
                 "lua",
                 "rust",
                 "html",
@@ -23,10 +23,10 @@ return {
             highlight = {
                 -- `false` will disable the whole extensionenable
                 enable = true,
-          },
-          indent = {
-              enable = true
-          },
-      })
-  end,
+            },
+            indent = {
+                enable = true
+            },
+        })
+    end,
 }
