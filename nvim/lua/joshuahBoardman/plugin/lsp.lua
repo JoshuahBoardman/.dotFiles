@@ -9,10 +9,23 @@ return {
     {
         'williamboman/mason-lspconfig.nvim',
         lazy = false,
+        dependencies  = {
+            'williamboman/mason.nvim',
+        },
         config = function()
            require("mason-lspconfig").setup({
                 -- Find LSPs: https://github.com/williamboman/mason-lspconfig.nvim 
-                ensure_installed = {"lua_ls", "gopls", "rust_analyzer", "tsserver", "marksman", "astro", "tailwindcss"},
+                ensure_installed = {
+                    "lua_ls",
+                    "gopls",
+                    "rust_analyzer",
+                    "tsserver",
+                    "marksman",
+                    "astro",
+                    "tailwindcss",
+                    "jsonls",
+                    "yamlls",
+                },
            })
         end
     },
@@ -20,14 +33,36 @@ return {
         'neovim/nvim-lspconfig',
         lazy = false,
         config = function()
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
             local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({})
-            lspconfig.gopls.setup({})
-            lspconfig.rust_analyzer.setup({})
-            lspconfig.tsserver.setup({})
-            lspconfig.marksman.setup({})
-            lspconfig.astro.setup({})
-            lspconfig.tailwindcss.setup({})
+            lspconfig.lua_ls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.gopls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.rust_analyzer.setup({
+                capabilities = capabilities
+            })
+            lspconfig.tsserver.setup({
+                capabilities = capabilities
+            })
+            lspconfig.marksman.setup({
+                capabilities = capabilities
+            })
+            lspconfig.astro.setup({
+                capabilities = capabilities
+            })
+            lspconfig.tailwindcss.setup({
+                capabilities = capabilities
+            })
+            lspconfig.jsonls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.yamlls.setup({
+                capabilities = capabilities
+            })
 
             -- local bufopts = { noremap=true, silent=true, buffer=bufnr }
               vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
