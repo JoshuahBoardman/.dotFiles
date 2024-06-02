@@ -26,6 +26,7 @@ return {
                 },
             })
             vim.opt.conceallevel = 1
+            -- TODO: add hotkeys for concistently used actions
         end,
     }
 }

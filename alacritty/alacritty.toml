@@ -19,3 +19,8 @@ dynamic_title = true
 size = 15.5
 # normal = {family = "FiraCode Nerd Font Mono", style = "Medium"} # Make sure font is installed
 
+[keyboard]
+bindings = [
+{ key = "e", mods = "Alt", char = "\u{1b}e" },
+{ key = "L", mods = "Control|Shift", chars = "l" },
+]
