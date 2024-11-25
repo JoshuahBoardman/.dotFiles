@@ -304,6 +304,11 @@ exec_always --no-startup-id fix_xcursor
 # call Pollybar
 exec_always ~/.config/polybar/launch.sh
 
+# Sets caps lock as esc
+exec_always --no-startup-id xmodmap -e "clear lock"
+exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
+exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
 # https://i3wm.org/docs/userguide.html#xresources
