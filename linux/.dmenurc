@@ -1,0 +1,23 @@
+# ~/.dmenurc
+
+## Define the font for dmenu to be used
+DMENU_FN="Noto-10.5"
+
+## Background color for unselected menu items
+DMENU_NB="#282828"  # Dark background (Gruvbox Material)
+
+## Text color for unselected menu items
+DMENU_NF="#D4BE98"  # Light beige text (Gruvbox Material)
+
+## Background color for selected menu items
+DMENU_SB="#D79921"  # Bright yellow background (Gruvbox Material)
+
+## Text color for selected menu items
+DMENU_SF="#282828"  # Dark text (Gruvbox Material)
+
+## Command for the terminal application to be used:
+TERMINAL_CMD="alacritty -e"  # Update this with your preferred terminal
+
+## Export our variables
+DMENU_OPTIONS="-fn $DMENU_FN -nb $DMENU_NB -nf $DMENU_NF -sf $DMENU_SF -sb $DMENU_SB"
+

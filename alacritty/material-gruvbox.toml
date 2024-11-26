@@ -1,0 +1,75 @@
+[colors.primary]
+background = "#282828"  # bg0
+foreground = "#d4be98"  # fg0
+dim_foreground = "#a89984"  # grey2
+bright_foreground = "#ebdbb2"  # fg1
+
+[colors.cursor]
+text = "#282828"  # bg0
+cursor = "#d8a657"  # yellow
+
+[colors.vi_mode_cursor]
+text = "#282828"  # bg0
+cursor = "#d3869b"  # purple
+
+[colors.search.matches]
+foreground = "#282828"  # bg0
+background = "#689d6a"  # green
+
+[colors.search.focused_match]
+foreground = "#282828"  # bg0
+background = "#d8a657"  # yellow
+
+[colors.footer_bar]
+foreground = "#282828"  # bg0
+background = "#d3869b"  # purple
+
+[colors.hints.start]
+foreground = "#282828"  # bg0
+background = "#d8a657"  # yellow
+
+[colors.hints.end]
+foreground = "#282828"  # bg0
+background = "#458588"  # aqua
+
+[colors.selection]
+text = "#282828"  # bg0
+background = "#928374"  # grey1
+
+[colors.normal]
+black = "#282828"   # bg0
+red = "#ea6962"     # red
+green = "#a9b665"   # green
+yellow = "#d8a657"  # yellow
+blue = "#7daea3"    # aqua
+magenta = "#d3869b" # purple
+cyan = "#89b482"    # cyan
+white = "#d4be98"   # fg0
+
+[colors.bright]
+black = "#3c3836"   # bg1
+red = "#cc241d"     # bright red
+green = "#98971a"   # bright green
+yellow = "#d79921"  # bright yellow
+blue = "#458588"    # bright aqua
+magenta = "#b16286" # bright purple
+cyan = "#689d6a"    # bright cyan
+white = "#ebdbb2"   # fg1
+
+[colors.dim]
+black = "#504945"   # grey0
+red = "#9d0006"     # dim red
+green = "#79740e"   # dim green
+yellow = "#b57614"  # dim yellow
+blue = "#076678"    # dim blue
+magenta = "#8f3f71" # dim purple
+cyan = "#427b58"    # dim cyan
+white = "#bdae93"   # grey2
+
+[[colors.indexed_colors]]
+index = 16
+color = "#fe8019"  # orange
+
+[[colors.indexed_colors]]
+index = 17
+color = "#83a598"  # light aqua

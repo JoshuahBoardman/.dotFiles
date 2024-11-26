@@ -17,6 +17,6 @@ size = 15.5
 
 [general]
 import = [
-  "~/.config/alacritty/catppuccin-frappe.toml",
+  "~/.config/alacritty/material-gruvbox.toml",
 ]
 # normal = {family = "FiraCode Nerd Font Mono", style = "Medium"} # Make sure font is installed
