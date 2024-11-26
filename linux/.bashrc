@@ -55,4 +55,9 @@ export TERMINAL=alacritty
 export BROWSER=firefox
 export GTK_THEME=Matcha-dark-azul
 
+# Auto start tmux if not already inside a tmux session
+if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+  tmux
+fi
+
 eval "$(starship init bash)"
