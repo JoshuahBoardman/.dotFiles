@@ -18,18 +18,21 @@ managers["yay.install_flags"]=""
 #### Package ####
 #################
 
-package_keys=("go" "fd" "git" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "test")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "test")
 
 declare -A packages
+
+packages["git.value"]="git"
+packages["git.manager"]="pacman"
+
+packages["stow.value"]="stow"
+packages["stow.manager"]="pacman"
 
 packages["go.value"]="go"
 packages["go.manager"]="pacman"
 
 packages["fd.value"]="fd"
 packages["fd.manager"]="pacman"
-
-packages["git.value"]="git"
-packages["git.manager"]="pacman"
 
 packages["gcc.value"]="gcc"
 packages["gcc.manager"]="pacman"

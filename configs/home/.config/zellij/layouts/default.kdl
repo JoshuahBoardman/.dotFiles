@@ -1,0 +1,9 @@
+layout {
+  tab {
+    pane {
+      command "bash"
+      close_on_exit true
+    }
+  }
+}
+
