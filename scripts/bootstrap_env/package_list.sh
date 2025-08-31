@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#TODO: Rename this file to something like "config_data.sh".
+# - Update all aditional files, that reference this file.
+
 ##########################
 #### Package Managers ####
 ##########################
@@ -18,6 +21,7 @@ managers["yay.install_flags"]=""
 #### Package ####
 #################
 
+#TODO: Add property to store package config location
 package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "test")
 
 declare -A packages

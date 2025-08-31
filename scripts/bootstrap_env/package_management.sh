@@ -1,6 +1,8 @@
 #!/bin/bash
 
+source ./utils.sh
 source ./package_list.sh
+
 
 # NOTE: For the time being this is fine, but potentially I should use an associative 
 # array and have an array of keys that is used to access the items, using "nameSpace.value" 
@@ -13,24 +15,15 @@ source ./package_list.sh
 # functionality called packages and managers
 # packages=("go" "fd" "git" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim")
 
-_get_property() {
-	declare -n structure="$1"
-	local name_space="$2"
-	local property="$3"
-
-	local key="$name_space.$property"
-	echo "${structure["$key"]}"
-}
-
 _gather_manager_packages() {
 	local manager=$1
 	local packages_by_manager=()
 	
 	for key in "${package_keys[@]}"; do
-	    local required_manager=$(_get_property packages "$key" "manager")
+	    local required_manager=$(get_property packages "$key" "manager")
 
 	    if [ "$required_manager" = "$manager" ]; then
-		packages_by_manager+=("$(_get_property packages "$key" "value")")
+		packages_by_manager+=("$(get_property packages "$key" "value")")
 	    fi
 	done
 	
@@ -46,7 +39,7 @@ _build_command() {
 	local manager=$1
 	local package_list=$2
 
-	local build_flags=$(_get_property managers "$manager" "install_flags")
+	local build_flags=$(get_property managers "$manager" "install_flags")
 	
 	echo "$manager $build_flags $package_list"
 }
