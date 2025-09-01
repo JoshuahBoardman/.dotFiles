@@ -9,3 +9,10 @@ get_property() {
 	local key="$name_space.$property"
 	echo "${structure["$key"]}"
 }
+
+is_installed() {
+	local program=$1
+
+	command -v "$program" >/dev/null 2>&1
+}
+
