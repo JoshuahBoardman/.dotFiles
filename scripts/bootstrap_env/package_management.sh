@@ -18,15 +18,6 @@ _gather_manager_packages() {
 	echo "${packages_by_manager[@]}"
 }
 
-_build_command() {
-	local manager=$1
-	local package_list=$2
-
-	local build_flags=$(get_property managers "$manager" "install_flags")
-	
-	echo "$manager $build_flags $package_list"
-}
-
 install_packages() {
     for manager in "${manager_keys[@]}"; do
 
@@ -36,11 +27,12 @@ install_packages() {
     	    continue
     	fi
 
+	local build_flags=$(get_property managers "$manager" "install_flags")
         local package_list=$(_gather_manager_packages "$manager")
 
         [ -z "$package_list" ] && continue  # skip if no packages
 
-        local install_command=$(_build_command "$manager" "$package_list")
+        local install_command=$(build_command "$manager" "$build_flags" "$package_list")
 
         echo "Running: $install_command"
 

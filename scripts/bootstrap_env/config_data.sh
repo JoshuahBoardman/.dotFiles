@@ -1,6 +1,18 @@
 #!/bin/bash
 
 ##########################
+#### Config Structure ####
+##########################
+
+config_keys=("sym_link_manager")
+
+declare -A config 
+
+config["sym_link_manager.value"]="stow"
+config["sym_link_manager.flags"]="-Rvt"
+
+
+##########################
 #### Package Managers ####
 ##########################
 
