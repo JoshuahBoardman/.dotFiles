@@ -1,7 +1,11 @@
 #!/bin/bash
 
 source ./utils.sh
-source ./config_data.sh
+source ./env_data.sh
+
+#TODO: Add a function for updating packages/package manager 
+# 	- E.g. pacman -Syu
+# 	- Also set mirrors on fresh install
 
 _gather_manager_packages() {
 	local manager=$1
@@ -38,7 +42,7 @@ install_packages() {
 
 	#TODO: Uncomment the eval line when ready to use
         # Execute the command and wait for it to finish
-        #eval "$install_command"
+        eval "sudo $install_command"
         local exit_code=$?
 
         # Stop the script if the command failed

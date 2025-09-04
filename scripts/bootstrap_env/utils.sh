@@ -18,9 +18,32 @@ is_installed() {
 
 build_command() {
 	local program=$1
-	local flags=$2
-	local arguments=$3
-	
-	echo "$program $flags $arguments"
+	shift
+	local parameters=("$@")
+
+
+	echo "$program ${parameters[@]}"
 }
+
+value_substitution() {
+	local string="$1"
+    	local placeholder="$2"
+    	local substitution="$3"
+
+    	local substituted_string=""
+
+    	for word in $string; do
+		if [ "$word" != "$placeholder" ]; then
+		    	substituted_string+="$word "
+		else
+		    	substituted_string+="$substitution "
+		fi
+	done
+
+	# Remove trailing space
+	substituted_string="${substituted_string%" "}"
+
+	echo "$substituted_string"
+}
+
 
