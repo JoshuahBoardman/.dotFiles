@@ -34,7 +34,7 @@ managers["yay.install_flags"]=""
 ##################
 
 #TODO: Add property to store package config location
-package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "zellij" "starship" "ly" "fastfetch" "obs-studio" "gimp")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "zellij" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf")
 
 declare -A packages
 
@@ -161,3 +161,38 @@ packages["obs-studio.manager"]="pacman"
 
 packages["gimp.value"]="gimp" 
 packages["gimp.manager"]="pacman"
+
+packages["ffmpeg.value"]="ffmpeg" 
+packages["ffmpeg.manager"]="pacman"
+
+packages["man-pages.value"]="man-pages" 
+packages["man-pages.manager"]="pacman"
+
+packages["man-db.value"]="man-db" 
+packages["man-db.manager"]="pacman"
+
+packages["timew.value"]="timew" 
+packages["timew.manager"]="pacman"
+
+packages["btop.value"]="btop" 
+packages["btop.manager"]="pacman"
+
+packages["nnn.value"]="nnn" 
+packages["nnn.manager"]="pacman"
+
+packages["nyxt.value"]="nyxt" 
+packages["nyxt.manager"]="pacman"
+
+packages["aichat.value"]="aichat" 
+packages["aichat.manager"]="pacman"
+
+packages["cheat.value"]="cheat" 
+packages["cheat.manager"]="yay"
+
+packages["github-cli.value"]="github-cli" 
+packages["github-cli.manager"]="pacman"
+
+packages["fzf.value"]="fzf" 
+packages["fzf.manager"]="pacman"
+
+
