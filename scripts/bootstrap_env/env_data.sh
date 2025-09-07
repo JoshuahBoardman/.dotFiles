@@ -19,6 +19,7 @@ stow -Rvt ~ -d ~/.dotFiles/configs home
 #### Package Managers ####
 ##########################
 
+# TODO: Add yay back (need yay install first)
 manager_keys=("pacman")
 
 declare -A managers
@@ -34,7 +35,7 @@ managers["yay.install_flags"]=""
 ##################
 
 #TODO: Add property to store package config location
-package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "zellij" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf" "tmux")
 
 declare -A packages
 
@@ -144,8 +145,13 @@ packages["neovim.manager"]="pacman"
 #packages["hyprlock.value"]="hyprlock" 
 #packages["hyprlock.manager"]="pacman"
 
-packages["zellij.value"]="zellij" 
-packages["zellij.manager"]="pacman"
+# NOTE: Currently I have swaped back to tmux instead
+#packages["zellij.value"]="zellij" 
+#packages["zellij.manager"]="pacman"
+
+#TODO: find a way to source tmux config/plugin stuff on install
+packages["tmux.value"]="tmux" 
+packages["tmux.manager"]="pacman"
 
 packages["starship.value"]="starship" 
 packages["starship.manager"]="pacman"
@@ -195,4 +201,15 @@ packages["github-cli.manager"]="pacman"
 packages["fzf.value"]="fzf" 
 packages["fzf.manager"]="pacman"
 
+###################
+#### Git Repos ####
+###################
+
+repo_keys=("pacman")
+
+declare -A repos 
+
+#TODO: Add all needed properties to manage and setup a repo
+repos["tpm.value"]="tpm" 
+repos["tpm.source"]="git@github.com:tmux-plugins/tpm.git"
 

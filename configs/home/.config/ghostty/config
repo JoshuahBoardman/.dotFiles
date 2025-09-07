@@ -58,5 +58,5 @@ window-padding-x = 10
 window-padding-y = 5
 
 # # Launch Commands:
-initial-command = "zellij"
+initial-command = "tmux"
 
