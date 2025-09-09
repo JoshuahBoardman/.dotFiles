@@ -44,7 +44,7 @@ managers["flatpak.install_flags"]="flatpak install flathub "
 ##################
 
 #TODO: Add property to store package config location
-package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf" "tmux" "discord" "spotify")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "aichat" "cheat" "github-cli" "fzf" "tmux" "discord" "spotify")
 
 declare -A packages
 
@@ -194,9 +194,6 @@ packages["btop.manager"]="pacman"
 
 packages["nnn.value"]="nnn" 
 packages["nnn.manager"]="pacman"
-
-packages["nyxt.value"]="nyxt" 
-packages["nyxt.manager"]="pacman"
 
 packages["aichat.value"]="aichat" 
 packages["aichat.manager"]="pacman"
