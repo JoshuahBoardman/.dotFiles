@@ -214,8 +214,8 @@ packages["flatpak.manager"]="pacman"
 #packages["discord.value"]="com.discordapp.Discord" 
 #packages["discord.manager"]="flatpak"
 
-packages["spotify.value"]="spotify" 
-packages["spotify.manager"]="pacman"
+packages["spotify.value"]="spotify" # Could use the spotify_launcher from pacman, but I want to update the app with pacman instead of having auto spotify updates
+packages["spotify.manager"]="yay"
 
 
 ###################

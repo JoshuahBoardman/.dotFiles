@@ -21,3 +21,17 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 
+#NOTE: Swapped to tmux from zellij
+#if command -v zellij >/dev/null 2>&1; then
+    # Only launch zellij if not already inside it
+#    if [ -z "$ZELLIJ" ] && [ -n "$PS1" ]; then
+#        exec zellij
+#    fi
+#fi
+
+#NOTE: Auto attach to dev tmux session
+if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$PS1" ]; then
+    ~/.local/bin/tmux_startup.sh
+fi
+
+
