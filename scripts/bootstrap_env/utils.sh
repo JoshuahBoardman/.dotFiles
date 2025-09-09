@@ -21,7 +21,6 @@ build_command() {
 	shift
 	local parameters=("$@")
 
-
 	echo "$program ${parameters[@]}"
 }
 

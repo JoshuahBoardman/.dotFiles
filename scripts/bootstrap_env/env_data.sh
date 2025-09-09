@@ -19,8 +19,8 @@ stow -Rvt ~ -d ~/.dotFiles/configs home
 #### Package Managers ####
 ##########################
 
-# TODO: Add yay back (need yay install first)
-manager_keys=("pacman")
+# TODO: Add yay back (need a yay install method first)
+manager_keys=("pacman", "flatpak")
 
 declare -A managers
 
@@ -30,12 +30,16 @@ managers["pacman.install_flags"]="-S --noconfirm --needed"
 managers["yay.value"]="yay"
 managers["yay.install_flags"]=""
 
+managers["flatpak.value"]="flatpak"
+managers["flatpak.install_flags"]="flatpak install flathub "
+
+
 ##################
 #### Packages ####
 ##################
 
 #TODO: Add property to store package config location
-package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf" "tmux")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "nyxt" "aichat" "cheat" "github-cli" "fzf" "tmux" "discord")
 
 declare -A packages
 
@@ -200,6 +204,13 @@ packages["github-cli.manager"]="pacman"
 
 packages["fzf.value"]="fzf" 
 packages["fzf.manager"]="pacman"
+
+packages["flatpak.value"]="flatpak" 
+packages["flatpak.manager"]="pacman"
+
+packages["discord.value"]="com.discordapp.Discord" 
+packages["discord.manager"]="flatpak"
+
 
 ###################
 #### Git Repos ####
