@@ -186,6 +186,9 @@ packages["man-pages.manager"]="pacman"
 packages["man-db.value"]="man-db" 
 packages["man-db.manager"]="pacman"
 
+packages["tldr.value"]="tldr" 
+packages["tldr.manager"]="pacman"
+
 packages["timew.value"]="timew" 
 packages["timew.manager"]="pacman"
 
