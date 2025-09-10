@@ -1,6 +1,4 @@
-#
 # ~/.bashrc
-#
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -9,8 +7,16 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
+#################
+#### Options ####
+#################
+
 # Enter vi mode
 set -o vi
+
+####################
+#### Auto Start ####
+####################
 
 # Start starship
 sleep 0.05 # Provides time for starship to get calculate width
@@ -34,4 +40,13 @@ if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$PS1" ]; then
     ~/.local/bin/tmux_startup.sh
 fi
 
+#################
+#### Aliases ####
+#################
 
+timew_script=$HOME/.dotFiles/scripts/misc/timew-log.sh
+
+alias tww='$timew_script start work'
+alias twpw='$timew_script start personal_work'
+alias twb='$timew_script start break'
+alias tws='$timew_script stop'
