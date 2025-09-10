@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #TODO: Set this to actual location... Might want to get some type of variable storage for my whole dotFiles
-NOTE_DIR="$HOME/sandbox/my_obsidian_vault"
+NOTE_DIR="$HOME/my_obsidian_vault"
 TODAY=$(date +%F)
 DAILY_NOTE="$NOTE_DIR/$TODAY.md"
 
