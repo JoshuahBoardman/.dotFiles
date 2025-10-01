@@ -3,9 +3,15 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
+######################
+#### Localization ####
+######################
+
+if locale -a | grep -qi en_US.utf8; then
+	export LANG=en_US.utf8
+	export LC_CTYPE=en_US.utf8
+	export LC_MESSAGES=en_US.utf8
+fi
 
 #################
 #### Options ####
@@ -18,14 +24,19 @@ set -o vi
 #### Auto Start ####
 ####################
 
-# Start starship
-sleep 0.05 # Provides time for starship to get calculate width
-eval "$(starship init bash)"
+if command -v starship >/dev/null 2>&1; then
+	# Start starship
+	sleep 0.05 # Provides time for starship to get calculate width for my specific prompt setup
+	eval "$(starship init bash)"
+else 
+	PS1='[\u@\h \W]\$ '
+fi
 
 # Adds NVM (Node Version Manager) to path 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #NOTE: Swapped to tmux from zellij
 #if command -v zellij >/dev/null 2>&1; then
@@ -44,9 +55,24 @@ fi
 #### Aliases ####
 #################
 
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
 timew_script=$HOME/.dotFiles/scripts/misc/timew-log.sh
 
-alias tww='$timew_script start work'
-alias twpw='$timew_script start personal_work'
-alias twb='$timew_script start break'
-alias tws='$timew_script stop'
+alias tww="$timew_script start work"
+alias twpw="$timew_script start personal_work"
+alias twb="$timew_script start break"
+alias tws="$timew_script stop"
+
+# WSL only aliases
+if grep -qi microsoft /proc/version || [ -n "$WSL_DISTRO_NAME" ]; then
+	if [ -d "/mnt/c/Users/JoshuahBoardman" ]; then
+    		alias winhome='cd /mnt/c/Users/JoshuahBoardman'
+  	elif [ -d "/mnt/c/Users/Ponder" ]; then
+    		alias winhome='cd /mnt/c/Users/Ponder'
+	else
+		alias winhome='echo "No Windows user folder found"'
+  fi
+fi
+
