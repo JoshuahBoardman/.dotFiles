@@ -9,8 +9,8 @@
 
 if locale -a | grep -qi en_US.utf8; then
 	export LANG=en_US.utf8
-	export LC_CTYPE=en_US.utf8
-	export LC_MESSAGES=en_US.utf8
+	#export LC_CTYPE=en_US.utf8
+	#export LC_MESSAGES=en_US.utf8
 fi
 
 #################
