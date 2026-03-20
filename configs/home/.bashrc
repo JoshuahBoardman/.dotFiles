@@ -51,6 +51,9 @@ if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$PS1" ]; then
     ~/.local/bin/tmux_startup.sh
 fi
 
+#NOTE setup for Claude code
+export PATH="$HOME/.local/bin:$PATH"
+
 #################
 #### Aliases ####
 #################

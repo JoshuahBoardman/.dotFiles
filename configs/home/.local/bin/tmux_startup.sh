@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Your default sessions
-default_sessions=("dev" "test" "server" "output" "notes")
+default_sessions=("dev" "test" "server" "agents" "notes")
 
 # Kill all sessions not in the default list
 for s in $(tmux list-sessions -F "#{session_name}"); do
