@@ -1,0 +1,22 @@
+{
+	"statusLine": {
+		"type": "command",
+		"command": "bash ~/.dotFiles/configs/home/.claude/statusline-command.sh"
+	},
+	"permissions": {
+		"deny": [
+			"Bash(curl *)",
+			"Bash(wget *)",
+			"Bash(sudo:*)",
+			"Bash(su:*)",
+			"Bash(rm -rf *)",
+			"Bash(git push --force *)",
+			"Read(./.env)",
+			"Read(./.env.*)",
+			"Read(./secrets/**)",
+			"Edit(*.key)",
+			"Edit(*.pem)"
+		],
+		"defaultMode": "plan"
+	}
+}
