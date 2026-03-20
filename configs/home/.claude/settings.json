@@ -18,5 +18,8 @@
 			"Edit(*.pem)"
 		],
 		"defaultMode": "plan"
+	},
+	"env": {
+		"CLAUDE_CODE_DISABLE_AUTOUPDATER": "1"
 	}
 }
