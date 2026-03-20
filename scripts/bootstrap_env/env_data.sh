@@ -43,7 +43,7 @@ managers["flatpak.install_flags"]="flatpak install flathub "
 ##################
 
 #TODO: Add property to store package config location
-package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "aichat" "cheat" "github-cli" "fzf" "tmux" "discord" "spotify" "dotnet-runtime" "dotnet-sdk" "aspnet-runtime" "kanshi" "lazygit")
+package_keys=("git" "stow" "go" "fd" "gcc" "make" "ripgrep" "nodejs" "unzip" "neovim" "networkmanager" "intel-ucode" "mesa" "vulkan-intel" "lib32-mesa" "base-devel" "git" "wayland" "hyprland" "uwsm" "ghostty" "firefox" "pipewire" "wireplumber" "ttf-dejavu" "waybar" "hyprpaper" "hyprshot" "swaync" "hyprlock" "starship" "ly" "fastfetch" "obs-studio" "gimp" "yay" "ffmpeg" "man-pages" "man-db" "tldr" "timew" "btop" "nnn" "aichat" "cheat" "github-cli" "fzf" "tmux" "discord" "spotify" "dotnet-runtime" "dotnet-sdk" "aspnet-runtime" "kanshi" "lazygit" "timer-bin")
 
 declare -A packages
 
@@ -230,6 +230,9 @@ packages["aspnet-runtime.manager"]="pacman"
 
 packages["kanshi.value"]="kanshi"
 packages["kanshi.manager"]="pacman"
+
+packages["timer-bin.value"]="timer-bin"
+packages["timer-bin.manager"]="yay"
 
 packages["lazygit.value"]="lazygit"
 packages["lazygit.manager"]="pacman"
