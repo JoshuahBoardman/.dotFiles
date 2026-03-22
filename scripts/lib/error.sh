@@ -9,8 +9,6 @@
 
 set -euo pipefail
 
-_DOTFILES_ROOT="$(git rev-parse --show-toplevel)"
-
 _error_handler() {
     local exit_code=$?
     local line_number=$1

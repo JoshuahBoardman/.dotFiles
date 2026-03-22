@@ -2,12 +2,12 @@
 # Main dotfiles bootstrap entry point.
 #
 # Prerequisites (install manually per README before running):
-#   pacman -S git yq
+#   sudo pacman -S git go-yq
 #
 # Usage:
 #   ./bootstrap.sh [--dry-run] [--priority <high|medium|low>]
 
-DOTFILES_ROOT="$(git rev-parse --show-toplevel)"
+DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$DOTFILES_ROOT/scripts/lib/log.sh"
 source "$DOTFILES_ROOT/scripts/lib/error.sh"
 
@@ -68,7 +68,7 @@ verify_prerequisites() {
 
     if [[ ${#missing[@]} -gt 0 ]]; then
         log_error "Missing prerequisites: ${missing[*]}"
-        log_error "Install them first: sudo pacman -S ${missing[*]}"
+        log_error "Install them first: sudo pacman -S git go-yq"
         exit 1
     fi
     log_success "Prerequisites present"
@@ -79,7 +79,7 @@ verify_prerequisites() {
 # ---------------------------------------------------------------------------
 bootstrap_aur_helper() {
     local aur_helper
-    aur_helper="$(yq '.settings.aur_helper' "$SPEC/settings.toml")"
+    aur_helper="$(yq -r '.settings.aur_helper' "$SPEC/settings.toml")"
 
     if command -v "$aur_helper" >/dev/null 2>&1; then
         log_info "AUR helper '$aur_helper' already installed"
@@ -104,10 +104,10 @@ bootstrap_aur_helper() {
 # Steps 5–6: Install packages
 # ---------------------------------------------------------------------------
 install_packages() {
-    "$DOTFILES_ROOT/system/bin/install_packages.sh" \
-        ${DRY_RUN:+--dry-run} \
-        ${PRIORITY:+--priority "$PRIORITY"} \
-        --platform "$PLATFORM"
+    local args=(--platform "$PLATFORM")
+    [[ "$DRY_RUN" == true ]] && args+=(--dry-run)
+    [[ -n "$PRIORITY" ]] && args+=(--priority "$PRIORITY")
+    "$DOTFILES_ROOT/system/bin/install_packages.sh" "${args[@]}"
 }
 
 # ---------------------------------------------------------------------------
@@ -115,12 +115,12 @@ install_packages() {
 # ---------------------------------------------------------------------------
 clone_repos() {
     local repos
-    repos="$(yq '.repos | keys | .[]' "$SPEC/packages.toml")"
+    repos="$(yq -r '.repos | keys | .[]' "$SPEC/packages.toml")"
 
     while IFS= read -r name; do
         local repo install_dir
-        repo="$(yq ".repos.${name}.repo" "$SPEC/packages.toml")"
-        install_dir="$(yq ".repos.${name}.install_dir" "$SPEC/packages.toml")"
+        repo="$(yq -r ".repos.${name}.repo" "$SPEC/packages.toml")"
+        install_dir="$(yq -r ".repos.${name}.install_dir" "$SPEC/packages.toml")"
         install_dir="${install_dir/#\~/$HOME}"
 
         if [[ -d "$install_dir" ]]; then
@@ -128,7 +128,7 @@ clone_repos() {
             continue
         fi
 
-        log_info "Cloning $name → $install_dir"
+        log_info "Cloning $name -> $install_dir"
         if [[ "$DRY_RUN" == true ]]; then
             log_info "[dry-run] Would clone $repo into $install_dir"
             continue
@@ -144,35 +144,38 @@ clone_repos() {
 # Step 8: Apply symlinks
 # ---------------------------------------------------------------------------
 link_configs() {
-    "$DOTFILES_ROOT/system/bin/link_configs.sh" \
-        ${DRY_RUN:+--dry-run} \
-        --platform "$PLATFORM"
+    local args=(--platform "$PLATFORM")
+    [[ "$DRY_RUN" == true ]] && args+=(--dry-run)
+    "$DOTFILES_ROOT/system/bin/link_configs.sh" "${args[@]}"
 }
 
 # ---------------------------------------------------------------------------
 # Step 9: Health check
 # ---------------------------------------------------------------------------
 health_check() {
+    if [[ "$DRY_RUN" == true ]]; then
+        log_info "Skipping health check (dry-run)"
+        return
+    fi
+
     log_info "Running health check..."
     local errors=0
 
-    # Check symlinks
     local count
-    count="$(yq '.symlinks.links | length' "$SPEC/symlinks.toml")"
+    count="$(yq -r '.symlinks.links | length' "$SPEC/symlinks.toml")"
     for ((i = 0; i < count; i++)); do
         local dest platforms
-        dest="$(yq ".symlinks.links[$i].dest" "$SPEC/symlinks.toml")"
+        dest="$(yq -r ".symlinks.links[$i].dest" "$SPEC/symlinks.toml")"
         dest="${dest/#\~/$HOME}"
-        platforms="$(yq ".symlinks.links[$i].platforms // []" "$SPEC/symlinks.toml")"
+        platforms="$(yq -r ".symlinks.links[$i].platforms // [] | .[]" "$SPEC/symlinks.toml" 2>/dev/null)"
 
-        # Skip platform-specific links that don't apply here
-        if [[ "$platforms" != "[]" ]]; then
-            echo "$platforms" | grep -q "\"$PLATFORM\"" || continue
+        if [[ -n "$platforms" ]]; then
+            echo "$platforms" | grep -qx "$PLATFORM" || continue
         fi
 
         if [[ ! -e "$dest" ]]; then
             log_warn "Missing: $dest"
-            ((errors++))
+            errors=$((errors + 1))
         fi
     done
 
