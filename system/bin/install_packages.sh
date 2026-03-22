@@ -1,0 +1,121 @@
+#!/bin/bash
+# Install packages defined in system/spec/packages.toml.
+#
+# Usage:
+#   ./install_packages.sh [--dry-run] [--platform <arch|wsl|mac|windows>]
+#                         [--priority <high|medium|low>]
+#
+# Without --priority, installs all priorities in order: high → medium → low.
+
+DOTFILES_ROOT="$(git rev-parse --show-toplevel)"
+source "$DOTFILES_ROOT/scripts/lib/log.sh"
+source "$DOTFILES_ROOT/scripts/lib/error.sh"
+
+SPEC="$DOTFILES_ROOT/system/spec"
+DRY_RUN=false
+PLATFORM=""
+PRIORITY_FILTER=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dry-run)  DRY_RUN=true ;;
+        --platform) PLATFORM="$2"; shift ;;
+        --priority) PRIORITY_FILTER="$2"; shift ;;
+        *) log_error "Unknown argument: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+# ---------------------------------------------------------------------------
+# Resolve install order: pacman first (others may depend_on it)
+# ---------------------------------------------------------------------------
+_get_managers_in_order() {
+    # Emit managers with no depends_on first, then those that depend on others
+    local managers
+    managers="$(yq '.package_managers | keys | .[]' "$SPEC/package_managers.toml")"
+
+    local no_dep=() with_dep=()
+    while IFS= read -r mgr; do
+        local dep
+        dep="$(yq ".package_managers.${mgr}.depends_on // \"\"" "$SPEC/package_managers.toml")"
+        if [[ -z "$dep" ]]; then
+            no_dep+=("$mgr")
+        else
+            with_dep+=("$mgr")
+        fi
+    done <<< "$managers"
+
+    printf '%s\n' "${no_dep[@]}" "${with_dep[@]}"
+}
+
+# ---------------------------------------------------------------------------
+# Collect packages for a given manager (and optional priority filter)
+# ---------------------------------------------------------------------------
+_collect_packages() {
+    local manager="$1"
+    local priority="${2:-}"
+
+    local filter=".packages | to_entries[] | select(.value.package_manager == \"$manager\")"
+    [[ -n "$priority" ]] && filter+=" | select(.value.priority == \"$priority\")"
+    filter+=" | .value.pkg"
+
+    yq "$filter" "$SPEC/packages.toml"
+}
+
+# ---------------------------------------------------------------------------
+# Install a list of packages with the given manager
+# ---------------------------------------------------------------------------
+_install_with_manager() {
+    local manager="$1"
+    shift
+    local pkgs=("$@")
+    [[ ${#pkgs[@]} -eq 0 ]] && return
+
+    local install_cmd elevated
+    install_cmd="$(yq ".package_managers.${manager}.install_cmd" "$SPEC/package_managers.toml")"
+    elevated="$(yq ".package_managers.${manager}.elevated" "$SPEC/package_managers.toml")"
+
+    local cmd=""
+    [[ "$elevated" == "true" ]] && cmd="sudo "
+    cmd+="$install_cmd ${pkgs[*]}"
+
+    log_info "[$manager] Installing: ${pkgs[*]}"
+    if [[ "$DRY_RUN" == true ]]; then
+        log_info "[dry-run] Would run: $cmd"
+        return
+    fi
+
+    eval "$cmd"
+    log_success "[$manager] Done"
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+case "$PRIORITY_FILTER" in
+    high)   priorities=(high) ;;
+    medium) priorities=(high medium) ;;
+    low|"") priorities=(high medium low) ;;
+    *) log_error "Invalid priority: $PRIORITY_FILTER (use high, medium, or low)"; exit 1 ;;
+esac
+
+while IFS= read -r manager; do
+    # Check manager is available
+    if ! command -v "$manager" >/dev/null 2>&1; then
+        log_warn "Manager '$manager' not found — skipping"
+        continue
+    fi
+
+    # Check depends_on is satisfied
+    local_dep="$(yq ".package_managers.${manager}.depends_on // \"\"" "$SPEC/package_managers.toml")"
+    if [[ -n "$local_dep" ]] && ! command -v "$local_dep" >/dev/null 2>&1; then
+        log_warn "Manager '$manager' requires '$local_dep' which is not installed — skipping"
+        continue
+    fi
+
+    for priority in "${priorities[@]}"; do
+        mapfile -t pkgs < <(_collect_packages "$manager" "$priority")
+        _install_with_manager "$manager" "${pkgs[@]}"
+    done
+
+done < <(_get_managers_in_order)

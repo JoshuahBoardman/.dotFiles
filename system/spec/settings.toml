@@ -1,0 +1,4 @@
+[settings]
+default_shell = "bash"
+aur_helper    = "yay"
+dotfiles_root = "~/.dotFiles"

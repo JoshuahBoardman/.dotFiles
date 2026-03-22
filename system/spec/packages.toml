@@ -1,0 +1,268 @@
+# ============================================================
+# Base packages — installed on every platform, prerequisite
+# tooling. git and yq are handled by the README bootstrap step
+# and are not listed here.
+# ============================================================
+
+[packages.base-devel]
+description     = "Base development tools meta-package"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "base-devel"
+
+[packages.git]
+description     = "Distributed version control system"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "git"
+
+[packages.go]
+description     = "Go programming language toolchain"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "go"
+
+[packages.gcc]
+description     = "GNU C/C++ compiler"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "gcc"
+
+[packages.make]
+description     = "GNU make build tool"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "make"
+
+[packages.fd]
+description     = "User-friendly alternative to find"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "fd"
+
+[packages.ripgrep]
+description     = "Fast recursive grep tool"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "ripgrep"
+
+[packages.fzf]
+description     = "Command-line fuzzy finder"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "fzf"
+
+[packages.jq]
+description     = "JSON processor"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "jq"
+
+[packages.github-cli]
+description     = "GitHub CLI tool"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "github-cli"
+
+[packages.neovim]
+description     = "Hyperextensible Vim-based text editor"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "neovim"
+
+[packages.tmux]
+description     = "Terminal multiplexer"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "tmux"
+
+[packages.lazygit]
+description     = "Terminal UI for git"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "lazygit"
+
+[packages.starship]
+description     = "Cross-shell prompt"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "starship"
+
+[packages.btop]
+description     = "Resource monitor"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "btop"
+
+[packages.fastfetch]
+description     = "System information display tool"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "fastfetch"
+
+[packages.man-pages]
+description     = "Linux man pages"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "man-pages"
+
+[packages.man-db]
+description     = "Man page database"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "man-db"
+
+[packages.tldr]
+description     = "Simplified man pages"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "tldr"
+
+[packages.unzip]
+description     = "Extraction utility for zip archives"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "unzip"
+
+[packages.nodejs]
+description     = "JavaScript runtime"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "nodejs"
+
+# ============================================================
+# Medium — full desktop/workstation setup
+# ============================================================
+
+[packages.ghostty]
+description     = "Fast, feature-rich terminal emulator"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "ghostty"
+
+[packages.firefox]
+description     = "Web browser"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "firefox"
+
+[packages.pipewire]
+description     = "Audio/video routing and processing"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "pipewire"
+
+[packages.wireplumber]
+description     = "PipeWire session manager"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "wireplumber"
+
+[packages.ttf-dejavu]
+description     = "DejaVu font family"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "ttf-dejavu"
+
+[packages.kanshi]
+description     = "Wayland display configuration tool"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "kanshi"
+
+[packages.timew]
+description     = "Time tracking CLI (Timewarrior)"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "timew"
+
+[packages.nnn]
+description     = "Terminal file manager"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "nnn"
+
+[packages.aichat]
+description     = "AI chat CLI tool"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "aichat"
+
+[packages.flatpak]
+description     = "Flatpak package manager"
+priority        = "medium"
+package_manager = "pacman"
+pkg             = "flatpak"
+
+[packages.cheat]
+description     = "Interactive cheatsheet tool"
+priority        = "medium"
+package_manager = "yay"
+pkg             = "cheat"
+
+[packages.timer-bin]
+description     = "Terminal timer utility"
+priority        = "medium"
+package_manager = "yay"
+pkg             = "timer-bin"
+
+[packages.glazewm]
+description     = "Tiling window manager for Windows"
+priority        = "medium"
+package_manager = "winget"
+pkg             = "GlazeWM"
+
+# ============================================================
+# Low — extras, media, and arch-specific
+# ============================================================
+
+[packages.obs-studio]
+description     = "Video recording and streaming"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "obs-studio"
+
+[packages.gimp]
+description     = "GNU Image Manipulation Program"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "gimp"
+
+[packages.ffmpeg]
+description     = "Audio/video conversion and streaming toolkit"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "ffmpeg"
+
+[packages.dotnet-runtime]
+description     = ".NET runtime"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "dotnet-runtime"
+
+[packages.dotnet-sdk]
+description     = ".NET SDK"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "dotnet-sdk"
+
+[packages.aspnet-runtime]
+description     = "ASP.NET Core runtime"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "aspnet-runtime"
+
+[packages.spotify]
+description     = "Music streaming client"
+priority        = "low"
+package_manager = "yay"
+pkg             = "spotify"
+
+# ============================================================
+# Git repos
+# ============================================================
+
+[repos.tpm]
+description = "Tmux Plugin Manager"
+repo        = "https://github.com/tmux-plugins/tpm"
+install_dir = "~/.tmux/plugins/tpm"

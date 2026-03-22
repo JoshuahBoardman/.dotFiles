@@ -1,0 +1,15 @@
+[package_managers.pacman]
+elevated    = true
+install_cmd = "pacman -S --noconfirm --needed"
+check_cmd   = "pacman -Qi"
+
+[package_managers.yay]
+elevated    = false
+install_cmd = "yay -S --noconfirm --needed"
+check_cmd   = "yay -Qi"
+depends_on  = "pacman"
+
+[package_managers.winget]
+elevated    = false
+install_cmd = "winget.exe install --silent --accept-package-agreements --accept-source-agreements --id"
+check_cmd   = "winget.exe list --id"

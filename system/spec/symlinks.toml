@@ -1,0 +1,95 @@
+# Symlink definitions for dotfiles deployment.
+#
+# Fields:
+#   src      — path relative to dotfiles root
+#   dest     — absolute destination path (~ and $ENV_VAR expanded at runtime)
+#   platforms — optional list; if absent the link applies to all platforms
+#               valid values: "arch", "wsl", "mac", "windows"
+#   method   — optional; "symlink" (default) or "copy"
+
+# ============================================================
+# Home configs
+# ============================================================
+
+[[symlinks.links]]
+src  = "configs/home/.claude"
+dest = "~/.claude"
+
+[[symlinks.links]]
+src  = "configs/home/.config/nvim"
+dest = "~/.config/nvim"
+
+[[symlinks.links]]
+src  = "configs/home/.config/hypr"
+dest = "~/.config/hypr"
+
+[[symlinks.links]]
+src  = "configs/home/.config/waybar"
+dest = "~/.config/waybar"
+
+[[symlinks.links]]
+src  = "configs/home/.config/kanshi"
+dest = "~/.config/kanshi"
+
+[[symlinks.links]]
+src  = "configs/home/.config/ghostty"
+dest = "~/.config/ghostty"
+
+[[symlinks.links]]
+src  = "configs/home/.config/wofi"
+dest = "~/.config/wofi"
+
+[[symlinks.links]]
+src  = "configs/home/.config/zellij"
+dest = "~/.config/zellij"
+
+[[symlinks.links]]
+src  = "configs/home/.config/lazygit"
+dest = "~/.config/lazygit"
+
+[[symlinks.links]]
+src  = "configs/home/.config/starship.toml"
+dest = "~/.config/starship.toml"
+
+[[symlinks.links]]
+src  = "configs/home/.local/bin/discord-wl.sh"
+dest = "~/.local/bin/discord-wl.sh"
+
+[[symlinks.links]]
+src  = "configs/home/.local/bin/obsidian-wl.sh"
+dest = "~/.local/bin/obsidian-wl.sh"
+
+[[symlinks.links]]
+src  = "configs/home/.local/bin/spotify-wl.sh"
+dest = "~/.local/bin/spotify-wl.sh"
+
+[[symlinks.links]]
+src  = "configs/home/.local/bin/tmux_startup.sh"
+dest = "~/.local/bin/tmux_startup.sh"
+
+[[symlinks.links]]
+src  = "configs/home/.tmux.conf"
+dest = "~/.tmux.conf"
+
+[[symlinks.links]]
+src  = "configs/home/.bash_profile"
+dest = "~/.bash_profile"
+
+# ============================================================
+# System configs (require elevated permissions)
+# ============================================================
+
+[[symlinks.links]]
+src      = "configs/system/etc/ly"
+dest     = "/etc/ly"
+elevated = true
+
+[[symlinks.links]]
+src      = "configs/system/etc/locale.conf"
+dest     = "/etc/locale.conf"
+elevated = true
+
+[[symlinks.links]]
+src      = "configs/system/etc/locale.gen"
+dest     = "/etc/locale.gen"
+elevated = true
