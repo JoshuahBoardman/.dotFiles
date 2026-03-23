@@ -1,7 +1,7 @@
 {
 	"statusLine": {
 		"type": "command",
-		"command": "bash ~/.dotFiles/configs/home/.claude/statusline-command.sh"
+		"command": "bash ~/.dotFiles/configs/claude/statusline-command.sh"
 	},
 	"permissions": {
 		"deny": [

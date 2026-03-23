@@ -52,12 +52,6 @@ priority        = "high"
 package_manager = "pacman"
 pkg             = "fzf"
 
-[packages.jq]
-description     = "JSON processor"
-priority        = "high"
-package_manager = "pacman"
-pkg             = "jq"
-
 [packages.github-cli]
 description     = "GitHub CLI tool"
 priority        = "high"
