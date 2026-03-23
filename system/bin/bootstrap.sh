@@ -115,12 +115,19 @@ install_packages() {
 # ---------------------------------------------------------------------------
 clone_repos() {
     local repos
-    repos="$(yq -r '.repos | keys | .[]' "$SPEC/packages.toml")"
+    repos="$(yq -r '.repos | to_entries[] | .key' "$SPEC/packages.toml")"
 
     while IFS= read -r name; do
-        local repo install_dir
+        local repo install_dir priority
         repo="$(yq -r ".repos.${name}.repo" "$SPEC/packages.toml")"
         install_dir="$(yq -r ".repos.${name}.install_dir" "$SPEC/packages.toml")"
+        priority="$(yq -r ".repos.${name}.priority" "$SPEC/packages.toml")"
+
+        local included=false
+        for p in "${priorities[@]}"; do
+            [[ "$p" == "$priority" ]] && included=true && break
+        done
+        [[ "$included" == false ]] && continue
         install_dir="${install_dir/#\~/$HOME}"
 
         if [[ -d "$install_dir" ]]; then
@@ -204,6 +211,13 @@ health_check() {
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+case "$PRIORITY" in
+    high)   priorities=(high) ;;
+    medium) priorities=(high medium) ;;
+    low|"") priorities=(high medium low) ;;
+    *) log_error "Invalid priority: $PRIORITY (use high, medium, or low)"; exit 1 ;;
+esac
+
 [[ "$DRY_RUN" == true ]] && log_info "Running in dry-run mode — no changes will be made"
 
 detect_platform

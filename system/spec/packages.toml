@@ -258,5 +258,12 @@ pkg             = "spotify"
 
 [repos.tpm]
 description = "Tmux Plugin Manager"
+priority    = "high"
 repo        = "https://github.com/tmux-plugins/tpm"
 install_dir = "~/.tmux/plugins/tpm"
+
+[repos.wallpapers]
+description = "Wallpaper collection"
+priority    = "low"
+repo        = "git@github.com:JoshuahBoardman/wallpapers.git"
+install_dir = "~/wallpapers"

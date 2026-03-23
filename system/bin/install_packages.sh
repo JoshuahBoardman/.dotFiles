@@ -58,25 +58,22 @@ _collect_packages() {
     local manager="$1"
     local priority="${2:-}"
 
-    local platform_expr=""
-    if [[ -n "$PLATFORM" ]]; then
-        platform_expr=".value[\"$PLATFORM\"]"
-    fi
-
     local filter
-    filter=".packages | to_entries[] |"
+    filter=".packages | to_entries[]"
 
     if [[ -n "$PLATFORM" ]]; then
-        filter+=" (${platform_expr}.package_manager // .value.package_manager) as \$mgr |"
-        filter+=" (${platform_expr}.pkg // .value.pkg) as \$pkg |"
+        filter+=" | select((.value[\"$PLATFORM\"].package_manager // .value.package_manager) == \"$manager\")"
     else
-        filter+=" .value.package_manager as \$mgr |"
-        filter+=" .value.pkg as \$pkg |"
+        filter+=" | select(.value.package_manager == \"$manager\")"
     fi
 
-    filter+=" select(\$mgr == \"$manager\")"
     [[ -n "$priority" ]] && filter+=" | select(.value.priority == \"$priority\")"
-    filter+=" | \$pkg"
+
+    if [[ -n "$PLATFORM" ]]; then
+        filter+=" | (.value[\"$PLATFORM\"].pkg // .value.pkg)"
+    else
+        filter+=" | .value.pkg"
+    fi
 
     yq -r "$filter" "$SPEC/packages.toml"
 }
@@ -130,9 +127,11 @@ while IFS= read -r manager; do
         continue
     fi
 
-    for priority in "${priorities[@]}"; do
-        mapfile -t pkgs < <(_collect_packages "$manager" "$priority")
-        _install_with_manager "$manager" "${pkgs[@]}"
-    done
+    mapfile -t pkgs < <(
+        for priority in "${priorities[@]}"; do
+            _collect_packages "$manager" "$priority"
+        done
+    )
+    _install_with_manager "$manager" "${pkgs[@]}"
 
 done < <(_get_managers_in_order)
