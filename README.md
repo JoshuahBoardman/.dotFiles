@@ -54,3 +54,7 @@ dotfiles/
 The `agents/` folder contains AI agent instruction files used across all machines.
 
 `baseline.md` is the equivalent of `AGENTS.md` — referenced at the top of any `CLAUDE.md` or similar file. Only update it when a specific behavior needs guidance or correction.
+
+## Local Overrides
+
+Machine-specific shell config (e.g. work `PATH`, env vars, private aliases) can be placed in `~/.bashrc.local.d/`. Any `*.sh` files in that directory are automatically sourced at the end of `.bashrc` on startup. This directory is unversioned and not part of the repo.

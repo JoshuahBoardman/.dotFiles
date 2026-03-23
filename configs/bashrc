@@ -38,20 +38,13 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-#NOTE: Swapped to tmux from zellij
-#if command -v zellij >/dev/null 2>&1; then
-    # Only launch zellij if not already inside it
-#    if [ -z "$ZELLIJ" ] && [ -n "$PS1" ]; then
-#        exec zellij
-#    fi
-#fi
 
 #NOTE: Auto attach to dev tmux session
 if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$PS1" ]; then
     ~/.local/bin/tmux_startup.sh
 fi
 
-#NOTE setup for Claude code
+#NOTE: setup for Claude code
 export PATH="$HOME/.local/bin:$PATH"
 
 ###################
@@ -92,3 +85,13 @@ if grep -qi microsoft /proc/version || [ -n "$WSL_DISTRO_NAME" ]; then
   fi
 fi
 
+#####################
+#### Local / Env ####
+#####################
+
+# Source machine-local overrides (unversioned, e.g. work PATH, env vars)
+if [ -d "$HOME/.bashrc.local.d" ]; then
+    for f in "$HOME/.bashrc.local.d"/*.sh; do
+        [ -f "$f" ] && . "$f"
+    done
+fi
