@@ -54,6 +54,19 @@ fi
 #NOTE setup for Claude code
 export PATH="$HOME/.local/bin:$PATH"
 
+###################
+#### Functions ####
+###################
+
+bootstrap() {
+    local dotfiles="$HOME/.dotFiles"
+    case "$1" in
+        link)    shift; "$dotfiles/system/bin/link_configs.sh" "$@" ;;
+        install) shift; "$dotfiles/system/bin/install_packages.sh" "$@" ;;
+        *)               "$dotfiles/system/bin/bootstrap.sh" "$@" ;;
+    esac
+}
+
 #################
 #### Aliases ####
 #################

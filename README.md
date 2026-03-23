@@ -1,5 +1,5 @@
 # My dotFiles
-*My final dotFiles that I wll be maintaining indefinitely.*
+*dotFiles that I will be maintaining indefinitely.*
 
 ## Bootstrap
 
@@ -21,6 +21,18 @@ Pass `--priority` to install only packages up to a given tier (`high` installs o
 
 ```bash
 ~/.dotFiles/system/bin/bootstrap.sh --priority high
+```
+
+Pass `--platform` to override platform detection (`arch`, `wsl`, `mac`, `windows`):
+
+```bash
+~/.dotFiles/system/bin/bootstrap.sh --platform wsl
+```
+
+Flags can be combined:
+
+```bash
+~/.dotFiles/system/bin/bootstrap.sh --dry-run --priority high --platform wsl
 ```
 
 ## Repository Structure
