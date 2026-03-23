@@ -1,12 +1,12 @@
 # My dotFiles
-*My final dotFiles that I wll be maintaining indefinitely.
+*My final dotFiles that I wll be maintaining indefinitely.*
 
 ## Bootstrap
 
 Install the prerequisites, then run the bootstrap script:
 
 ```bash
-sudo pacman -S git yq
+sudo pacman -S git go-yq
 git clone git@github.com:JoshuahBoardman/new_dotFIles.git ~/.dotFiles
 ~/.dotFiles/system/bin/bootstrap.sh
 ```
@@ -17,24 +17,28 @@ Pass `--dry-run` to preview all actions without making changes:
 ~/.dotFiles/system/bin/bootstrap.sh --dry-run
 ```
 
-Pass `--priority` to install only packages of a given tier:
+Pass `--priority` to install only packages up to a given tier (`high` installs only high, `medium` installs high + medium, `low` installs everything):
 
 ```bash
 ~/.dotFiles/system/bin/bootstrap.sh --priority high
 ```
 
-## Agents Folder
-*The agents folder contains AI agent specific files that I want to use across all my machines*
+## Repository Structure
 
+```
+dotfiles/
+├── configs/      # Config files, symlinked to their destinations
+├── system/
+│   ├── spec/     # TOML specs — packages, managers, symlinks, settings
+│   └── bin/      # Bootstrap scripts
+├── scripts/
+│   ├── lib/      # Shared bash utilities (logging, error handling)
+│   └── misc/     # Personal workflow scripts
+└── agents/       # AI agent instruction files
+```
 
-The `baseline.md` file is the equivilant of AGENTS.md and I link to it at the top of an AGENTS.md or other variations like CLAUDE.md. 
-    - **Only update this file if I notice a specific behavior that I want to add guidance/correction for.**
+## Agents
 
-The `personas/` folder is conains roles that an agent can take on. I would inject these at the start of an agentic session.
+The `agents/` folder contains AI agent instruction files used across all machines.
 
-The `skills/` folder contains the skills that I consistently give agents when working on various tasks.
-
-### Skills:
-**When updating agent skills please reference the [Agent Spec](https://agentskills.io/home)
-
-
+`baseline.md` is the equivalent of `AGENTS.md` — referenced at the top of any `CLAUDE.md` or similar file. Only update it when a specific behavior needs guidance or correction.

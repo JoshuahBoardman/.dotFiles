@@ -164,7 +164,8 @@ health_check() {
     local count
     count="$(yq -r '.symlinks.links | length' "$SPEC/symlinks.toml")"
     for ((i = 0; i < count; i++)); do
-        local dest platforms
+        local src dest platforms
+        src="$(yq -r ".symlinks.links[$i].src" "$SPEC/symlinks.toml")"
         dest="$(yq -r ".symlinks.links[$i].dest" "$SPEC/symlinks.toml")"
         dest="${dest/#\~/$HOME}"
         platforms="$(yq -r ".symlinks.links[$i].platforms // [] | .[]" "$SPEC/symlinks.toml" 2>/dev/null)"
@@ -173,9 +174,23 @@ health_check() {
             echo "$platforms" | grep -qx "$PLATFORM" || continue
         fi
 
-        if [[ ! -e "$dest" ]]; then
-            log_warn "Missing: $dest"
-            errors=$((errors + 1))
+        local abs_src="$DOTFILES_ROOT/$src"
+
+        if [[ -d "$abs_src" ]]; then
+            # Check each tracked file individually
+            while IFS= read -r -d '' src_file; do
+                local rel="${src_file#$abs_src/}"
+                local dest_file="$dest/$rel"
+                if [[ ! -L "$dest_file" ]]; then
+                    log_warn "Not a symlink: $dest_file"
+                    errors=$((errors + 1))
+                fi
+            done < <(find "$abs_src" -type f -print0)
+        else
+            if [[ ! -L "$dest" ]]; then
+                log_warn "Not a symlink: $dest"
+                errors=$((errors + 1))
+            fi
         fi
     done
 

@@ -6,6 +6,8 @@
 #                         [--priority <high|medium|low>]
 #
 # Without --priority, installs all priorities in order: high → medium → low.
+# Platform overrides: if [packages.foo.$PLATFORM] exists, its manager/pkg take
+# precedence over the top-level values.
 
 DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$DOTFILES_ROOT/scripts/lib/log.sh"
@@ -48,15 +50,33 @@ _get_managers_in_order() {
 }
 
 # ---------------------------------------------------------------------------
-# Collect packages for a given manager (and optional priority filter)
+# Collect packages for a given manager (and optional priority filter).
+# Platform overrides: [packages.foo.$PLATFORM].package_manager / .pkg take
+# precedence over top-level values when PLATFORM is set.
 # ---------------------------------------------------------------------------
 _collect_packages() {
     local manager="$1"
     local priority="${2:-}"
 
-    local filter=".packages | to_entries[] | select(.value.package_manager == \"$manager\")"
+    local platform_expr=""
+    if [[ -n "$PLATFORM" ]]; then
+        platform_expr=".value[\"$PLATFORM\"]"
+    fi
+
+    local filter
+    filter=".packages | to_entries[] |"
+
+    if [[ -n "$PLATFORM" ]]; then
+        filter+=" (${platform_expr}.package_manager // .value.package_manager) as \$mgr |"
+        filter+=" (${platform_expr}.pkg // .value.pkg) as \$pkg |"
+    else
+        filter+=" .value.package_manager as \$mgr |"
+        filter+=" .value.pkg as \$pkg |"
+    fi
+
+    filter+=" select(\$mgr == \"$manager\")"
     [[ -n "$priority" ]] && filter+=" | select(.value.priority == \"$priority\")"
-    filter+=" | .value.pkg"
+    filter+=" | \$pkg"
 
     yq -r "$filter" "$SPEC/packages.toml"
 }
