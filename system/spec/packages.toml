@@ -124,6 +124,14 @@ priority        = "high"
 package_manager = "pacman"
 pkg             = "nodejs"
 
+[packages.docker]
+description     = "Container engine"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "docker"
+
+
+
 # ============================================================
 # Medium — full desktop/workstation setup
 # ============================================================
