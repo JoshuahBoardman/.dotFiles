@@ -275,3 +275,10 @@ description = "Wallpaper collection"
 priority    = "low"
 repo        = "git@github.com:JoshuahBoardman/wallpapers.git"
 install_dir = "~/wallpapers"
+
+[repos.life_management_vault]
+description = "My personal note taking and life management system"
+priority    = "high"
+repo        = "git@github.com:JoshuahBoardman/life_management_vault.git"
+install_dir = "~/life_management"
+
