@@ -41,7 +41,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 #NOTE: Auto attach to dev tmux session
 if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$PS1" ]; then
-    ~/.local/bin/tmux_startup.sh
+    ~/.dotFiles/scripts/startup/tmux_startup.sh
 fi
 
 #NOTE: setup for Claude code
