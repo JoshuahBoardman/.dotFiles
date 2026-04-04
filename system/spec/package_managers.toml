@@ -1,3 +1,12 @@
+# Package manager definitions.
+#
+# Fields:
+#   binary      — optional; binary name to check for availability (defaults to the manager key name)
+#   elevated    — if true, install_cmd is prefixed with sudo
+#   install_cmd — command used to install packages (package name appended at runtime)
+#   check_cmd   — command used to verify a package is installed
+#   depends_on  — optional; another manager that must be present first
+
 [package_managers.pacman]
 elevated    = true
 install_cmd = "pacman -S --noconfirm --needed"
@@ -10,6 +19,7 @@ check_cmd   = "yay -Qi"
 depends_on  = "pacman"
 
 [package_managers.winget]
+binary      = "winget.exe"
 elevated    = false
 install_cmd = "winget.exe install --silent --accept-package-agreements --accept-source-agreements --id"
 check_cmd   = "winget.exe list --id"

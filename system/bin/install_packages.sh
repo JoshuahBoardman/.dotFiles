@@ -116,8 +116,9 @@ case "$PRIORITY_FILTER" in
 esac
 
 while IFS= read -r manager; do
-    if ! command -v "$manager" >/dev/null 2>&1; then
-        log_warn "Manager '$manager' not found — skipping"
+    binary="$(yq -r ".package_managers.${manager}.binary // \"${manager}\"" "$SPEC/package_managers.toml")"
+    if ! command -v "$binary" >/dev/null 2>&1; then
+        log_warn "Manager '$manager' not found (looked for '$binary') — skipping"
         continue
     fi
 
