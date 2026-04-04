@@ -1,8 +1,13 @@
-# ============================================================
-# Base packages — installed on every platform, prerequisite
-# tooling. git and yq are handled by the README bootstrap step
-# and are not listed here.
-# ============================================================
+# Package definitions — installed via managers in spec/package_managers.toml.
+# git and yq are handled by the README bootstrap step and are not listed here.
+#
+# Fields:
+#   description     — human-readable description of the package
+#   priority        — high | medium | low; controls install order
+#   package_manager — manager key from package_managers.toml
+#   pkg             — package name passed to the install command
+#   <platform>      — optional subtable override (arch | wsl | mac | windows);
+#                     package_manager and pkg fields take precedence for that platform
 
 [packages.base-devel]
 description     = "Base development tools meta-package"
