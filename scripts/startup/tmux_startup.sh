@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Your default sessions
-default_sessions=("dev" "test" "server" "agents" "notes")
+default_sessions=("dev" "test" "server" "agents" "notes" "dotFiles")
+default_session_dirs=("$HOME" "$HOME" "$HOME" "$HOME" "$HOME/life_management/" "$HOME/.dotFiles")
 
 # Kill all sessions not in the default list
 for s in $(tmux list-sessions -F "#{session_name}"); do
@@ -11,11 +12,9 @@ for s in $(tmux list-sessions -F "#{session_name}"); do
 done
 
 # Create default sessions if they don't exist
-for s in "${default_sessions[@]}"; do
-    tmux has-session -t "$s" 2>/dev/null || tmux new-session -d -s "$s"
+for i in "${!default_sessions[@]}"; do
+    tmux has-session -t "${default_sessions[$i]}" 2>/dev/null || tmux new-session -d -s "${default_sessions[$i]}" -c "${default_session_dirs[$i]}"
 done
-
-#TODO: Open notes straight to my vault
 
 # Attach to the first default session
 tmux attach-session -t "dev"
