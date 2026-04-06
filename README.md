@@ -1,7 +1,7 @@
 # My dotFiles
 *dotFiles that I will be maintaining indefinitely.*
 
-*Ideally works on all OS' (mainly care about Arch and Arch WSL.) Everything is glued together with TOML and bash.*
+Ideally works on all OS' (mainly care about Arch and Arch WSL.) Everything is glued together with TOML and bash.
 
 ## Bootstrap
 
