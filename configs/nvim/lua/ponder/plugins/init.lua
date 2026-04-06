@@ -17,4 +17,5 @@ return {
   require 'ponder.plugins.grapple',
   require 'ponder.plugins.telekasten',
   require 'ponder.plugins.misc',
+  require 'ponder.plugins.hardtime',
 }

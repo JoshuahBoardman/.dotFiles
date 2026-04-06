@@ -135,7 +135,11 @@ priority        = "high"
 package_manager = "pacman"
 pkg             = "docker"
 
-
+[packages.timer-bin]
+description     = "Terminal timer utility"
+priority        = "high"
+package_manager = "yay"
+pkg             = "timer-bin"
 
 # ============================================================
 # Medium — full desktop/workstation setup
@@ -189,12 +193,6 @@ priority        = "medium"
 package_manager = "pacman"
 pkg             = "nnn"
 
-[packages.aichat]
-description     = "AI chat CLI tool"
-priority        = "medium"
-package_manager = "pacman"
-pkg             = "aichat"
-
 [packages.flatpak]
 description     = "Flatpak package manager"
 priority        = "medium"
@@ -206,12 +204,6 @@ description     = "Interactive cheatsheet tool"
 priority        = "medium"
 package_manager = "yay"
 pkg             = "cheat"
-
-[packages.timer-bin]
-description     = "Terminal timer utility"
-priority        = "medium"
-package_manager = "yay"
-pkg             = "timer-bin"
 
 [packages.glazewm]
 description     = "Tiling window manager for Windows"
