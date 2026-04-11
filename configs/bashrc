@@ -47,6 +47,8 @@ fi
 #NOTE: setup for Claude code
 export PATH="$HOME/.local/bin:$PATH"
 
+export PATH="$HOME/.dotFiles/scripts/notes:$PATH"
+
 ###################
 #### Functions ####
 ###################

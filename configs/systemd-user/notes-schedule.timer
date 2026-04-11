@@ -1,0 +1,9 @@
+[Unit]
+Description=run notes scheduler daily at 6am
+
+[Timer]
+OnCalendar=*-*-* 06:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

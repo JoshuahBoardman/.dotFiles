@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(realpath "$0")")/tokens.sh"
+
+VAULT="${NOTES_VAULT:-$HOME/life_management}"
+TEMPLATES="${NOTES_TEMPLATES:-$HOME/life_management/desktop_templates}"
+
+DRY_RUN=false
+ARGS=()
+for arg in "$@"; do
+  [[ "$arg" == "--dry-run" ]] && DRY_RUN=true || ARGS+=("$arg")
+done
+set -- "${ARGS[@]+"${ARGS[@]}"}"
+
+TYPE="${1:-}"
+TITLE="${2:-}"
+
+[[ -z "$TYPE" ]] && { echo "usage: notes new [--dry-run] <type> [title]" >&2; exit 1; }
+
+TEMPLATE="$TEMPLATES/${TYPE}_template.md"
+[[ ! -f "$TEMPLATE" ]] && { echo "no template found for type: $TYPE" >&2; exit 1; }
+
+if [[ -z "$TITLE" ]]; then
+  read -rp "title: " TITLE
+fi
+
+SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '_' | tr -cd '[:alnum:]_')
+FILENAME="${SLUG}_${TYPE}.md"
+DEST="$VAULT/$FILENAME"
+
+if [[ "$DRY_RUN" == true ]]; then
+  echo "would create: $DEST"
+  echo "  template:   $TEMPLATE"
+  exit 0
+fi
+
+[[ -f "$DEST" ]] && { echo "note already exists: $DEST" >&2; exit 1; }
+
+cp "$TEMPLATE" "$DEST"
+substitute_tokens "$DEST" "$SLUG"
+
+${EDITOR:-nvim} "$DEST"

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VAULT="${NOTES_VAULT:-$HOME/life_management}"
+LEVEL="${1:-}"
+
+[[ -z "$LEVEL" ]] && { echo "usage: notes priority <p1|p2|p3|p4>" >&2; exit 1; }
+
+RESULTS=()
+
+while IFS= read -r file; do
+  match=$(yq --front-matter=extract \
+    "select(.archived == false and .priority.$LEVEL == true) | filename" \
+    "$file" 2>/dev/null || true)
+  [[ -n "$match" ]] && RESULTS+=("$file")
+done < <(rg -l "priority:" "$VAULT" --glob '*.md' 2>/dev/null || true)
+
+if [[ ${#RESULTS[@]} -eq 0 ]]; then
+  echo "no $LEVEL notes found"
+  exit 0
+fi
+
+${EDITOR:-nvim} "${RESULTS[@]}"

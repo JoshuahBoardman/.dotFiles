@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(realpath "$0")")/tokens.sh"
+
+VAULT="${NOTES_VAULT:-$HOME/life_management}"
+WHERE=""
+SET_EXPR=""
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --where) WHERE="$2";    shift 2 ;;
+    --set)   SET_EXPR="$2"; shift 2 ;;
+    --vault) VAULT="$2";    shift 2 ;;
+    *) echo "unknown arg: $1" >&2; exit 1 ;;
+  esac
+done
+
+[[ -z "$WHERE" ]]    && { echo "--where is required" >&2; exit 1; }
+[[ -z "$SET_EXPR" ]] && { echo "--set is required"   >&2; exit 1; }
+
+HINT=$(echo "$WHERE" | grep -oP '\.\K[a-z_]+' | head -1)
+
+TMPDIR_WORK=$(mktemp -d)
+trap 'rm -rf "$TMPDIR_WORK"' EXIT
+
+HAS_CHANGES=false
+declare -A TMP_MAP
+MATCHED=()
+
+while IFS= read -r file; do
+  result=$(yq --front-matter=extract "select($WHERE) | .title" "$file" 2>/dev/null || true)
+  [[ -n "$result" ]] && MATCHED+=("$file")
+done < <(rg -l "$HINT" "$VAULT" --glob '*.md' 2>/dev/null || true)
+
+if [[ ${#MATCHED[@]} -eq 0 ]]; then
+  echo "no files matched the query"
+  exit 0
+fi
+
+echo "matched ${#MATCHED[@]} file(s)"
+
+for file in "${MATCHED[@]}"; do
+  tmp="$TMPDIR_WORK/$(basename "$file")"
+  cp "$file" "$tmp"
+  yq --front-matter=extract -i "$SET_EXPR" "$tmp" 2>/dev/null || continue
+
+  if ! diff -q "$file" "$tmp" > /dev/null 2>&1; then
+    echo ""
+    echo "--- $file"
+    diff --unified=2 "$file" "$tmp" | tail -n +3 || true
+    HAS_CHANGES=true
+    TMP_MAP["$file"]="$tmp"
+  fi
+done
+
+if [[ "$HAS_CHANGES" == false ]]; then
+  echo "no changes would be made"
+  exit 0
+fi
+
+echo ""
+read -rp "apply these changes? [y/N] " confirm
+[[ "$confirm" != "y" && "$confirm" != "Y" ]] && { echo "aborted"; exit 0; }
+
+for file in "${!TMP_MAP[@]}"; do
+  cp "${TMP_MAP[$file]}" "$file"
+  echo "updated: $file"
+done
+
+echo "done"

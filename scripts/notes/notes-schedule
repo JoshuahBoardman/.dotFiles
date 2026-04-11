@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(realpath "$0")")/tokens.sh"
+
+VAULT="${NOTES_VAULT:-$HOME/life_management}"
+TEMPLATES="${NOTES_TEMPLATES:-$HOME/life_management/desktop_templates}"
+CONFIG="${NOTES_SCHEDULE_CONFIG:-$HOME/life_management/schedule.toml}"
+
+[[ ! -f "$CONFIG" ]] && { echo "config not found: $CONFIG" >&2; exit 1; }
+
+DRY_RUN=false
+CMD="${1:-run}"
+[[ "${2:-}" == "--dry-run" ]] && DRY_RUN=true
+[[ "$CMD" != "run" ]] && { echo "usage: notes schedule run [--dry-run]" >&2; exit 1; }
+
+today_weekday=$(date +%A | tr '[:upper:]' '[:lower:]')
+today_day=$(date +%-d)
+
+declare -A entry
+
+process_entry() {
+  local frequency="${entry[frequency]:-}"
+  local filename_fmt="${entry[filename]:-}"
+  local template="${entry[template]:-}"
+
+  [[ -z "$frequency" || -z "$filename_fmt" || -z "$template" ]] && return
+
+  local should_run=false
+
+  case "$frequency" in
+    daily)
+      should_run=true
+      ;;
+    weekly)
+      local weekday="${entry[weekday]:-}"
+      [[ "$weekday" == "$today_weekday" ]] && should_run=true
+      ;;
+    monthly)
+      local day="${entry[day]:-}"
+      [[ "$day" == "$today_day" ]] && should_run=true
+      ;;
+    biweekly)
+      local weekday="${entry[weekday]:-}"
+      local start_date="${entry[start_date]:-}"
+      if [[ "$weekday" == "$today_weekday" && -n "$start_date" ]]; then
+        local start_epoch now_epoch weeks_elapsed
+        start_epoch=$(date -d "$start_date" +%s)
+        now_epoch=$(date +%s)
+        weeks_elapsed=$(( (now_epoch - start_epoch) / 604800 ))
+        (( weeks_elapsed % 2 == 0 )) && should_run=true
+      fi
+      ;;
+  esac
+
+  if [[ "$should_run" == true ]]; then
+    local filename dest title_val
+    filename=$(date +"$filename_fmt").md
+    dest="$VAULT/$filename"
+    title_val="${entry[title]:-$(date +"$filename_fmt")}"
+
+    if [[ "$DRY_RUN" == true ]]; then
+      if [[ ! -f "$dest" ]]; then
+        echo "would generate: $dest"
+      else
+        echo "already exists: $dest"
+      fi
+    elif [[ ! -f "$dest" ]]; then
+      local tmpl_file="$TEMPLATES/${template}.md"
+      [[ ! -f "$tmpl_file" ]] && { echo "template not found: $tmpl_file" >&2; return; }
+      cp "$tmpl_file" "$dest"
+      substitute_tokens "$dest" "$title_val"
+      echo "generated: $dest"
+    else
+      echo "already exists: $dest"
+    fi
+  fi
+
+  unset entry
+  declare -A entry
+}
+
+while IFS= read -r line; do
+  case "$line" in
+    "[[scheduled]]")
+      process_entry 2>/dev/null || true
+      unset entry
+      declare -A entry
+      ;;
+    frequency*)       entry[frequency]=$(echo "$line"  | cut -d'"' -f2) ;;
+    template*)        entry[template]=$(echo "$line"   | cut -d'"' -f2) ;;
+    filename_format*) entry[filename]=$(echo "$line"   | cut -d'"' -f2) ;;
+    weekday*)         entry[weekday]=$(echo "$line"    | cut -d'"' -f2) ;;
+    start_date*)      entry[start_date]=$(echo "$line" | cut -d'"' -f2) ;;
+    title\ *)         entry[title]=$(echo "$line"      | cut -d'"' -f2) ;;
+    day\ *)           entry[day]=$(echo "$line"        | cut -d'=' -f2 | tr -d ' ') ;;
+  esac
+done < "$CONFIG"
+
+process_entry 2>/dev/null || true
+
+echo "schedule run complete"

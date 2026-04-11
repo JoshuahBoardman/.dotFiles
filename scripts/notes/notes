@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CMD="${1:-}"
+shift || true
+
+case "$CMD" in
+  new)      exec notes-new "$@" ;;
+  search)   exec notes-search "$@" ;;
+  priority) exec notes-priority "$@" ;;
+  update)   exec notes-update "$@" ;;
+  schedule) exec notes-schedule "$@" ;;
+  *)
+    echo "usage: notes <new|search|priority|update|schedule>"
+    exit 1
+    ;;
+esac

@@ -72,6 +72,10 @@ dest = "~/.bash_profile"
 src  = "configs/bashrc"
 dest = "~/.bashrc"
 
+[[symlinks.links]]
+src  = "configs/systemd-user"
+dest = "~/.config/systemd/user"
+
 # ============================================================
 # System configs (require elevated permissions)
 # ============================================================

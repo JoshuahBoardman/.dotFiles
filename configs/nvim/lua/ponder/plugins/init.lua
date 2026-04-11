@@ -15,7 +15,7 @@ return {
   require 'ponder.plugins.lint',
   require 'ponder.plugins.oil',
   require 'ponder.plugins.grapple',
-  require 'ponder.plugins.telekasten',
+  -- require 'ponder.plugins.telekasten',
   require 'ponder.plugins.misc',
   require 'ponder.plugins.hardtime',
 }

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VAULT="${NOTES_VAULT:-$HOME/life_management}"
+QUERY="${*:-}"
+
+[[ -z "$QUERY" ]] && { echo "usage: notes search <query>" >&2; exit 1; }
+
+result=$(rg --column --line-number --no-heading "$QUERY" "$VAULT" \
+  | fzf --delimiter=: \
+        --preview 'bat --style=plain --color=always {1}' \
+        --preview-window=right:60% \
+  | cut -d: -f1)
+
+[[ -n "$result" ]] && ${EDITOR:-nvim} "$result"

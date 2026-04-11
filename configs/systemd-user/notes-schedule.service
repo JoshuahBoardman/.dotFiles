@@ -1,0 +1,9 @@
+[Unit]
+Description=notes scheduled note generator
+
+[Service]
+Type=oneshot
+ExecStart=%h/.dotFiles/scripts/notes/notes-schedule run
+Environment=NOTES_VAULT=%h/life_management
+Environment=NOTES_TEMPLATES=%h/life_management/templates
+Environment=NOTES_SCHEDULE_CONFIG=%h/life_management/schedule.toml
