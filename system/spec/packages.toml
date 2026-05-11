@@ -141,6 +141,18 @@ priority        = "high"
 package_manager = "yay"
 pkg             = "timer-bin"
 
+[packages.cargo]
+description     = "Rust package manager"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "cargo"
+
+[packages.clang]
+description     = "C compiler"
+priority        = "high"
+package_manager = "pacman"
+pkg             = "clang"
+
 # ============================================================
 # Medium — full desktop/workstation setup
 # ============================================================
@@ -257,6 +269,25 @@ priority        = "low"
 package_manager = "yay"
 pkg             = "spotify"
 
+[packages.waybar]
+description     = "Wayland status bar"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "waybar"
+
+[packages.caskaydia-cova-nerd-fond]
+description     = "CaskaydiaCova Nerd Font"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "ttf-cascadia-code-nerd"
+
+
+[packages.hyprpaper]
+description     = "Wallpaper manager for hyprland"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "hyprpaper"
+
 # ============================================================
 # Git repos
 # ============================================================
@@ -267,15 +298,15 @@ priority    = "high"
 repo        = "https://github.com/tmux-plugins/tpm"
 install_dir = "~/.tmux/plugins/tpm"
 
-[repos.wallpapers]
-description = "Wallpaper collection"
-priority    = "low"
-repo        = "git@github.com:JoshuahBoardman/wallpapers.git"
-install_dir = "~/wallpapers"
+#[repos.wallpapers]
+#description = "Wallpaper collection"
+#priority    = "low"
+#repo        = "git@github.com:JoshuahBoardman/wallpapers.git"
+#install_dir = "~/wallpapers"
 
-[repos.life_management_vault]
-description = "My personal note taking and life management system"
-priority    = "high"
-repo        = "git@github.com:JoshuahBoardman/life_management_vault.git"
-install_dir = "~/life_management"
+#[repos.life_management_vault]
+#description = "My personal note taking and life management system"
+#priority    = "high"
+#repo        = "git@github.com:JoshuahBoardman/life_management_vault.git"
+#install_dir = "~/life_management"
 
