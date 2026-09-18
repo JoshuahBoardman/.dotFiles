@@ -288,6 +288,13 @@ priority        = "low"
 package_manager = "pacman"
 pkg             = "hyprpaper"
 
+[packages.hyprshot]
+description     = "Screenshot tool for hyprland"
+priority        = "low"
+package_manager = "pacman"
+pkg             = "hyprshot"
+
+
 # ============================================================
 # Git repos
 # ============================================================
