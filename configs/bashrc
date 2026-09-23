@@ -1,5 +1,9 @@
 # ~/.bashrc
 
+# TODO: Add folder setup and management (keep diretory clean)
+# TODO: Add theme management
+# TODO: Break out into differnt modules
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
